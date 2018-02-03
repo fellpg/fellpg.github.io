@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<title>飞翔的小鸟</title>
+	<style>
+	body{
+		padding:0;
+		margin:0;
+	}
+	canvas{
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		margin: auto;
+	}
+</style>
+<script src="./js/tootl.js"></script>
+<script src="./js/bird.js"></script>
+<script src="./js/pipe.js"></script>
+<script src="./js/land.js"></script>
+<script src="./js/sky.js"></script>
+<script>
+	window.onload=function(){
+		loadImage({
+			sky:'./images/sky.png',
+			land:'./images/land.png',
+			bird:'./images/bird.png',
+			pipeUp:'./images/pipeUp.png',
+			pipeDown:'./images/pipeDown.png'
+		},function(imgs){
+			var cvs = document.getElementById('cvs');
+			var ctx = cvs.getContext('2d');
+			var arr=[];
+
+			arr.push(getSky(ctx,imgs.sky,5));
+			arr.push(getSky(ctx,imgs.sky,5));
+			// var imgBrid = imgs.bird;
+			// var bird = new Bird(ctx,imgBrid,3,1,50,200,3);
+			arr.push(getBird(ctx,imgs.bird,3,1,50,200,3));
+
+			// var imgsky = imgs.sky;
+			// var sky1 = new Sky(ctx,imgsky,5);
+			// var sky2 = new Sky(ctx,imgsky,5);
+
+			// var imgland = imgs.land;
+			// var land1 = new Land(ctx,imgland,5);
+			// var land2 = new Land(ctx,imgland,5);
+			// var land3 = new Land(ctx,imgland,5);
+			// var land4 = new Land(ctx,imgland,5);
+
+			// var imgup = imgs.pipeUp;
+			// var imgdown = imgs.pipeDown;
+			// var pipe1 = new Pipe(ctx,imgup,imgdown,5,160);
+			// var pipe2 = new Pipe(ctx,imgup,imgdown,5,160);
+			// var pipe3 = new Pipe(ctx,imgup,imgdown,5,160);
+			// var pipe4 = new Pipe(ctx,imgup,imgdown,5,160);
+			// var pipe5 = new Pipe(ctx,imgup,imgdown,5,160);
+			// var pipe6 = new Pipe(ctx,imgup,imgdown,5,160);
+			for(var i=0;i<6;i++){
+				arr.push(getPipe(ctx,imgs.pipeUp,imgs.pipeDown,5,160));
+			}
+
+			for(var i=0;i<4;i++){
+				arr.push(getLand(ctx,imgs.land,5));
+			}
+
+
+			var timer = setInterval(function(){
+				ctx.clearRect(0,0,ctx.canvas.width,ctx.canvas.height);
+					arr.forEach(function(ele){
+						ele.draw();
+						ele.move();
+					});
+				// sky1.draw();
+				// sky1.move();
+				// sky2.draw();
+				// sky2.move();
+
+				// bird.draw();
+				// bird.move();
+
+				// pipe1.draw();
+				// pipe1.move();
+				// pipe2.draw();
+				// pipe2.move();
+				// pipe3.draw();
+				// pipe3.move();
+				// pipe4.draw();
+				// pipe4.move();
+				// pipe5.draw();
+				// pipe5.move();
+				// pipe6.draw();
+				// pipe6.move();
+
+				// land1.draw();
+				// land1.move();
+				// land2.draw();
+				// land2.move();
+				// land3.draw();
+				// land3.move();
+				// land4.draw();
+				// land4.move();
+				var bird = getBird(ctx,imgs.bird,3,1,50,200,3);
+				if(bird.Y<50
+					||bird.Y>cvs.height-imgs.land.height-bird.img.height+23
+					||ctx.isPointInPath(bird.X,bird.Y)){
+					// alert('游戏结束');
+					// clearInterval(timer);
+			}
+			ctx.beginPath();
+		},30);
+		});
+	}
+</script>
+
+</head>
+<body>
+	<canvas id="cvs" width="800" height="600"></canvas>
+
+</body>
+</html>
